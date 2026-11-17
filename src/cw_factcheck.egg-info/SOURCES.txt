@@ -1,8 +1,0 @@
-README.md
-pyproject.toml
-src/cw_factcheck.egg-info/PKG-INFO
-src/cw_factcheck.egg-info/SOURCES.txt
-src/cw_factcheck.egg-info/dependency_links.txt
-src/cw_factcheck.egg-info/requires.txt
-src/cw_factcheck.egg-info/top_level.txt
-src/factcheck/__init__.py
