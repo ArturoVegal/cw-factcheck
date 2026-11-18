@@ -1,5 +1,6 @@
 import os
 import httpx
+import json
 
 base_url = os.environ["N8N_BASE_URL"]
 api_key = os.environ["N8N_API_KEY"]
@@ -8,7 +9,7 @@ all_executions = []
 cursor = None
 
 while True:
-    params = {"workflowId": "iVREGcd6wltugaC7", "limit": 100}
+    params = {"workflowId": "iVREGcd6wltugaC7", "limit": 25, "includeData": True}
     if cursor:
         params["cursor"] = cursor
 
@@ -30,3 +31,19 @@ print("total executions", len(all_executions))
 dates = [execution["startedAt"] for execution in all_executions]
 print("oldest:", min(dates))
 print("newest:", max(dates))
+
+fact_runs = []
+for execution in all_executions:
+    run_data = execution["data"]["resultData"]["runData"]
+    if "fact_check" in run_data:
+        fact_runs.append(execution)
+
+print("runs with fact_check:", len(fact_runs))
+for execution in fact_runs:
+    print(execution["id"], execution["startedAt"])
+
+with open("data/fact_runs_raw.jsonl", "w") as f:
+    for execution in fact_runs:
+        f.write(json.dumps(execution) + "\n")
+
+print("saved", len(fact_runs), "runs to data/fact_runs_raw.jsonl")
