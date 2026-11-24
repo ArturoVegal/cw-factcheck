@@ -18,6 +18,8 @@ with open("data/fact_runs_raw.jsonl") as f:
         prep = node_items(run_data, "fact_prep")
         check = node_items(run_data, "fact_check")
         apply = node_items(run_data, "fact_apply")
+        config = node_items(run_data, "init_config")
+        blog = node_items(run_data, "check_publish_date")
 
         if not (len(prep) == len(check) == len(apply) == 1):
             skipped.append(run["id"])
@@ -26,6 +28,11 @@ with open("data/fact_runs_raw.jsonl") as f:
         extracted.append({
             "execution_id": run["id"],
             "started_at": run["startedAt"],
+            "client_id": config[0] ["client_id"],
+            "language": config[0]["language"],
+            "blog_id": blog[0]["blog_id"],
+            "blog_items": len(blog),
+            "forced_blog_id": config[0]["force_blog_id"],
             "draft": prep[0]["output"],
             "sources": prep[0]["facts_block"],
             "checker_raw": check[0]["text"],

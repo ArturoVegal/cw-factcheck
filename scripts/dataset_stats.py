@@ -24,3 +24,11 @@ first_applied = changed[0]["checker_result"]["applied"][0]
 print("one applied edit is a:", type(first_applied).__name__)
 if isinstance(first_applied, dict):
     print("with fields:", list(first_applied.keys()))
+
+print("clients:", len({item["client_id"] for item in items}))
+print("articles (blog_id):", len({item["blog_id"] for item in items}))
+print("forced runs:", sum(1 for item in items if item["forced_blog_id"]))
+print("max blog_inputs rows:", max(item["blog_items"] for item in items))
+
+mismatch = [item for item in items if item["forced_blog_id"] and item["forced_blog_id"] != item["blog_id"]]
+print("forced runs where blog_id differs:", len(mismatch))
