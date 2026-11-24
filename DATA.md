@@ -50,3 +50,15 @@ All times are UTC, as n8n stores them (Amsterdam = UTC+1).
 not the article written. The id comes from `check_publish_date`, which passes
 on only the article that is due. Check: in all 86 forced runs, that id equals
 `force_blog_id` (0 mismatches).
+
+## Client id
+`client_id` comes in two forms (`GF95` and `CW-PREV-20261030-GF95`) for the
+same client. Take the client from `blog_id` instead: the part before the `_`.
+Result: 16 clients, one of them the test client `CW-TEST-SEED-1027`.
+
+## Label set (`scripts/select_label_set.py`)
+- Pool: runs after the cutoff that were **real** (not forced): 46 runs, one
+  per article, no article with more than one. 46 articles from 15 clients.
+- Excluded: the test client `CW-TEST-SEED-1027` (4 articles, forced runs only).
+- Selection: 30 articles, dealt round-robin across the 15 clients, so no
+  client dominates. Output: `data/label_set.jsonl`.
