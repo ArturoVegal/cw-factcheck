@@ -36,7 +36,7 @@ for item in items:
         })
 
 with open("data/flags.csv", "w", newline="", encoding="utf-8-sig") as f:
-    writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+    writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()), delimiter=";")
     writer.writeheader()
     writer.writerows(rows)
 
