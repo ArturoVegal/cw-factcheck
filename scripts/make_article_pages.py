@@ -16,6 +16,8 @@ for number, item in enumerate(items, start=1):
         f"<pre style='white-space: pre-wrap'>{html.escape(item['sources'])}</pre>"
         "<h2>Draft (before the check)</h2>"
         f"{item['draft']}"
+        "<h2>Final (after the check)</h2>"
+        f"{item['final']}"
     )
     path = out_dir / f"{number:02d}_{item['blog_id']}.html"
     path.write_text(page, encoding="utf-8")
